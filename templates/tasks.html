@@ -1,0 +1,52 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-heading">
+    <h2>All Tasks</h2>
+    <a href="{{ url_for('add_task') }}" class="add-button">
+        + Assign Task
+    </a>
+</div>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Task</th>
+        <th>Event</th>
+        <th>Volunteer</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for task in tasks %}
+    <tr>
+        <td>{{ task[0] }}</td>
+        <td>{{ task[1] }}</td>
+        <td>{{ task[2] }}</td>
+        <td>{{ task[3] }}</td>
+        <td>
+            <span class="status {{ 'completed' if task[4] == 'Completed' else 'pending' }}">
+                {{ task[4] }}
+            </span>
+        </td>
+        <td>
+            {% if task[4] == 'Pending' %}
+            <form method="POST"
+                  action="{{ url_for('complete_task', task_id=task[0]) }}">
+                <button type="submit" class="complete-button">
+                    Mark Complete
+                </button>
+            </form>
+            {% else %}
+            <span>Finished</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="6">No tasks assigned yet.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

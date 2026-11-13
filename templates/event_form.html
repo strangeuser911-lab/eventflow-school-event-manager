@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ heading }}</h2>
+
+<form class="data-form" method="POST">
+    <label>Event Name</label>
+    <input type="text" name="event_name" required
+           value="{{ event[1] if event else '' }}">
+
+    <label>Event Date</label>
+    <input type="date" name="event_date" required
+           value="{{ event[2] if event else '' }}">
+
+    <label>Venue</label>
+    <input type="text" name="venue" required
+           value="{{ event[3] if event else '' }}">
+
+    <button type="submit">Save Event</button>
+    <a href="{{ url_for('events') }}">Cancel</a>
+</form>
+{% endblock %}

@@ -1,0 +1,39 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Assign a Task</h2>
+
+{% if events and volunteers %}
+<form class="data-form" method="POST">
+    <label>Task Name</label>
+    <input type="text" name="task_name" required
+           placeholder="e.g. Manage registration desk">
+
+    <label>Select Event</label>
+    <select name="event_id" required>
+        <option value="">Choose an event</option>
+        {% for event in events %}
+        <option value="{{ event[0] }}">{{ event[1] }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Assign Volunteer</label>
+    <select name="volunteer_id" required>
+        <option value="">Choose a volunteer</option>
+        {% for volunteer in volunteers %}
+        <option value="{{ volunteer[0] }}">
+            {{ volunteer[1] }} ({{ volunteer[2] }})
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Assign Task</button>
+    <a href="{{ url_for('tasks') }}">Cancel</a>
+</form>
+{% else %}
+<p>You need at least one event and one volunteer before assigning a task.</p>
+<a href="{{ url_for('events') }}">Go to Events</a>
+<a href="{{ url_for('volunteers') }}">Go to Volunteers</a>
+{% endif %}
+{% endblock %}

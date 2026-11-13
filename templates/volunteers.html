@@ -1,0 +1,55 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-heading">
+    <h2>All Volunteers</h2>
+    <a href="{{ url_for('add_volunteer') }}" class="add-button">
+        + Register Volunteer
+    </a>
+</div>
+
+<form class="search-form" method="GET"
+      action="{{ url_for('volunteers') }}">
+    <input type="text" name="search"
+           placeholder="Search volunteers..."
+           value="{{ search }}">
+    <button type="submit">Search</button>
+    <a href="{{ url_for('volunteers') }}">Clear</a>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Class</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for volunteer in volunteers %}
+    <tr>
+        <td>{{ volunteer[0] }}</td>
+        <td>{{ volunteer[1] }}</td>
+        <td>{{ volunteer[2] }}</td>
+        <td class="actions">
+            <a class="edit-button"
+               href="{{ url_for('edit_volunteer',
+                                volunteer_id=volunteer[0]) }}">
+                Edit
+            </a>
+
+            <form class="delete-form" method="POST"
+                  action="{{ url_for('delete_volunteer',
+                                     volunteer_id=volunteer[0]) }}"
+                  onsubmit="return confirm('Delete this volunteer?');">
+                <button class="delete-button" type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="4">No volunteers found.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

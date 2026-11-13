@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ heading }}</h2>
+
+<form class="data-form" method="POST">
+    <label>Volunteer Name</label>
+    <input type="text" name="volunteer_name" required
+           value="{{ volunteer[1] if volunteer else '' }}">
+
+    <label>Class</label>
+    <input type="text" name="class_name" required
+           placeholder="e.g. XII-A"
+           value="{{ volunteer[2] if volunteer else '' }}">
+
+    <button type="submit">Save Volunteer</button>
+    <a href="{{ url_for('volunteers') }}">Cancel</a>
+</form>
+{% endblock %}
