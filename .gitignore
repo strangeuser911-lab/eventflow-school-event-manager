@@ -218,3 +218,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+.idea/
+.venv/
+__pycache__/
+*.pyc
+exportToHTML/
+eventflow.db
