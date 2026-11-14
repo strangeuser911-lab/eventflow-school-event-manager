@@ -1,8 +1,8 @@
-
 import sqlite3
+from pathlib import Path
 
-DATABASE_NAME = "eventflow.db"
-
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATABASE_NAME = BASE_DIR / "eventflow.db"
 
 def connect_database():
     connection = sqlite3.connect(DATABASE_NAME)

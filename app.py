@@ -1,14 +1,18 @@
-
+import os
 from flask import (
     Flask, render_template, request, redirect,
     url_for, flash
 )
-from database.db import connect_database
+
+from database.db import connect_database, initialize_database
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = "eventflow-development-key"
-
+app.secret_key = os.environ.get(
+    "FLASK_SECRET_KEY",
+    "local-development-key"
+)
+initialize_database()
 
 # ---------- HELPER FUNCTIONS ----------
 
